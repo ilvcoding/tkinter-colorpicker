@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Button, Scale, Canvas
+from tkinter import Button, Scale, Canvas, Entry
 
 
 class color_picker:
@@ -13,6 +13,10 @@ class color_picker:
     # Close the window and print chosen value
     def close_dialog(self):
         print(self.rgbtohex(self.R_scale.get(),self.G_scale.get(),self.B_scale.get()))
+        self.window.destroy()
+
+    def close_with_hex(self):
+        print(self.ent.get())
         self.window.destroy()
     
     # Gui for the color chooser
@@ -30,6 +34,11 @@ class color_picker:
         self.B_scale = Scale(master = self.window, length = 256, orient='horizontal', from_=0, to=255)
         self.B_scale.grid(row = 2, column = 0)
 
+        # Entry widget
+        self.ent = Entry(master = self.window, width=7)
+        self.ent.insert("end", "#000000")
+        self.ent.grid(row=4, column=0)
+
         # Bindings for mouse interactions
         self.R_scale.bind("<Motion>", self.update_col)
         self.G_scale.bind("<Motion>", self.update_col)
@@ -44,6 +53,8 @@ class color_picker:
         self.Ok_button.grid(row = 3, column = 0)
         self.close_button = Button(master = self.window, text = 'Close', command = self.window.destroy)
         self.close_button.grid(row = 3, column = 1)
+        self.Hex_button = Button(master = self.window, text="Hex", command=self.close_with_hex)
+        self.Hex_button.grid(row = 4, column = 1)
 
 # Main loop
 def main():
@@ -56,3 +67,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
